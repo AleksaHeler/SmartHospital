@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">SmartHospital</string>
+    <string name="app_title">Smart Hospital</string>
+    <string name="register_button">Registruj se</string>
+    <string name="login_button">Prijavi se</string>
+</resources>
