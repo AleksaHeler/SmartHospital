@@ -3,4 +3,20 @@
     <string name="app_title">Smart Hospital</string>
     <string name="register_button">Registruj se</string>
     <string name="login_button">Prijavi se</string>
+    <string name="password_label">Lozinka:</string>
+    <string name="submit_button">Submit</string>
+    <string name="birth_date_label">Datum rođenja</string>
+    <string name="gender_other">Ostalo</string>
+    <string name="gender_female">Ž</string>
+    <string name="gender_male">M</string>
+    <string name="gender_label">Pol:</string>
+    <string name="lastname_placeholder">Unesite prezime</string>
+    <string name="lastname_label">Prezime:</string>
+    <string name="name_placeholder">Unesite ime</string>
+    <string name="name_label">Ime:</string>
+    <string name="login_welcome">Dobrodošli u Login Activity</string>
+    <string name="password_placeholder">Unesite lozinku</string>
+    <string name="login_submit_button">Prijava</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
 </resources>
