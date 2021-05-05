@@ -5,10 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".AdminFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/emptyView"
+        android:text="@string/this_list_is_empty"/>
 
 </FrameLayout>

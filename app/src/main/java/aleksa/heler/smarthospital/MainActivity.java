@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             login_submit.setVisibility(View.VISIBLE);
         }
         else if(v.getId() == R.id.login_submit_button){
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            String username = usernameET.getText().toString();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class).putExtra("username", username));
         }
     }
 }

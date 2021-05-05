@@ -1,5 +1,6 @@
 package aleksa.heler.smarthospital;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,14 +19,10 @@ import android.view.ViewGroup;
  */
 public class UserFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = "username";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String username;
 
     public UserFragment() {
         // Required empty public constructor
@@ -32,16 +32,14 @@ public class UserFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param username Username.
      * @return A new instance of fragment UserFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static UserFragment newInstance(String param1, String param2) {
+    public static UserFragment newInstance(String username) {
         UserFragment fragment = new UserFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM1, username);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,8 +48,7 @@ public class UserFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            username = getArguments().getString(ARG_PARAM1);
         }
     }
 
@@ -59,6 +56,23 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user, container, false);
+        View v = inflater.inflate(R.layout.fragment_user, container, false);
+
+        //TextView tv = v.findViewById(R.id.hello_blank_fragment);
+        //tv.setText(username);
+
+        UserListAdapter adapter = new UserListAdapter(this.getContext());
+
+        adapter.addElement(new UserListModel("12.05.2021", "pregled 1"));
+        adapter.addElement(new UserListModel("24.05.2021", "pregled 2"));
+        adapter.addElement(new UserListModel("13.06.2021", "pregled 3"));
+        adapter.addElement(new UserListModel("07.07.2021", "pregled 4"));
+
+        ListView listView = v.findViewById(R.id.list);
+        TextView textView = v.findViewById(R.id.emptyView);
+        listView.setEmptyView(textView);
+        listView.setAdapter(adapter);
+
+        return v;
     }
 }
