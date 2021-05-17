@@ -61,16 +61,16 @@ public class AdminFragment extends Fragment {
         TextView textView = v.findViewById(R.id.emptyView);
         listView.setEmptyView(textView);
         listView.setAdapter(adapter);
-        Log.d("DEVICE", "Adding setOnItemClickCallback");
         // TODO: dodati callback za switch na uredjaju (set active)
         // TODO: ne poziva se ovaj callback
+        /*Log.d("DEVICE", "Adding setOnItemClickCallback");
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("DEVICE", "Switching to another activity");
                 startActivity(new Intent(getContext(), DeviceActivity.class));
             }
-        });
+        });*/
 
         return v;
     }

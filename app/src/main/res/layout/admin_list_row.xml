@@ -15,12 +15,28 @@
         android:layout_height="80dp"
         android:layout_weight="1" />
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="10"
-        android:gravity="center"
-        android:id="@+id/listTxt"/>
+        android:layout_weight="10">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:id="@+id/listTxt"/>
+
+        <TextView
+            android:id="@+id/listTxtOverlay"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="NEAKTIVAN"
+            android:textColor="#FF6666"
+            android:textSize="24sp"
+            android:visibility="visible"
+            android:rotation="-15"/>
+    </RelativeLayout>
 
     <Switch
         android:id="@+id/listSw"
