@@ -1,13 +1,16 @@
 package aleksa.heler.smarthospital;
 
-public class UserListModel {
+public class Appointment {
+    private String id;
     private String date;
     private String text;
 
-    public UserListModel(String date, String text) {
+    public Appointment(String date, String text) {
         this.date = date;
         this.text = text;
     }
+
+    public String getId() { return id; }
 
     public String getDate() {
         return date;
@@ -17,6 +20,8 @@ public class UserListModel {
         return text;
     }
 
+    public void setId(String id) { this.id = id; }
+
     public void setDate(String date) {
         this.date = date;
     }
@@ -24,4 +29,5 @@ public class UserListModel {
     public void setText(String text) {
         this.text = text;
     }
+
 }

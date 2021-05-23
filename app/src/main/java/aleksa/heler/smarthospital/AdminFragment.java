@@ -1,8 +1,6 @@
 package aleksa.heler.smarthospital;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,9 +9,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,9 +27,15 @@ import android.widget.TextView;
  */
 public class AdminFragment extends Fragment {
 
-    public AdminFragment() {
-        // Required empty public constructor
-    }
+    private HttpHelper httpHelper;
+
+    private static int SERVER_STATUS_OK = 200;
+    private static String SERVER_URL_POST = "http://192.168.0.17:8080/api/device";
+    private static String SERVER_URL_GET = "http://192.168.0.17:8080/api/devices";
+    private static String SERVER_URL_DELETE = "http://192.168.0.17:8080/api/device/";
+
+    // Required empty public constructor
+    public AdminFragment() { }
 
     /**
      * Use this factory method to create a new instance of
@@ -32,7 +43,6 @@ public class AdminFragment extends Fragment {
      *
      * @return A new instance of fragment AdminFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static AdminFragment newInstance() {
         AdminFragment fragment = new AdminFragment();
         return fragment;
@@ -41,6 +51,7 @@ public class AdminFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        httpHelper = new HttpHelper();
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -52,25 +63,93 @@ public class AdminFragment extends Fragment {
 
         AdminListAdapter adapter = new AdminListAdapter(this.getContext());
 
-        adapter.addElement(new AdminListModel(getResources().getDrawable(R.drawable.blood_test), "description 1"));
-        adapter.addElement(new AdminListModel(getResources().getDrawable(R.drawable.palette), "description 2"));
-        adapter.addElement(new AdminListModel(getResources().getDrawable(R.drawable.flask), "description 3"));
-        adapter.addElement(new AdminListModel(getResources().getDrawable(R.drawable.test_tube), "description 4"));
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////// Generisi nove uredjaje kad se ucita ovaj fragment - TESTING ONLY
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        /*for(int i = 0; i < 6; i++) {
+            int finalI = i;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        // Priprema podataka uredjaja
+                        String name = "Uredjaj " + finalI;
+                        String id = "" + new Random().nextInt(100);
+
+                        // Kreiranje JSON-a koji cemo poslati
+                        JSONObject jsonSend = new JSONObject();
+                        jsonSend.put("name", name);
+                        jsonSend.put("id", id);
+                        jsonSend.put("state", "on");
+
+                        // Slanje json-a na server i ispis da li je uspelo
+                        int response = httpHelper.postJSONObjectFromURL(SERVER_URL_POST, jsonSend);
+                        //int response = 0;
+                        //for(int i = 0; i < 1000; i++){
+                        //    httpHelper.httpDelete(SERVER_URL_DELETE + i);
+                        //}
+
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (response == SERVER_STATUS_OK) {
+                                    Toast.makeText(getContext(), "post Success", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getContext(), "post Error: " + response, Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }*/
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////// Dobavi sve uredjaje sa servera i dodaj ih u listu da se prikazu
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Dobavi niz sa servera i prodji kroz njega
+                    JSONArray jsonArray = httpHelper.getJSONArrayFromURL(SERVER_URL_GET);
+                    for (int i = 0; i < jsonArray.length(); i++)
+                    {
+                        // Parsiranje podataka
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        String id = object.getString("id");
+                        String name = object.getString("name");
+                        String state = object.getString("state");
+                        boolean bool_state = state.toUpperCase().equals("ON");
+
+                        // Dodaj u listu
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter.addElement(new SmartDevice(id, name, bool_state, getResources().getDrawable(R.drawable.test_tube)));
+                            }
+                        });
+                    }
+                    if(jsonArray.length() == 0){
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getContext(), "There are no available devices!", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
         ListView listView =  (ListView) v.findViewById(R.id.list);
         TextView textView = v.findViewById(R.id.emptyView);
         listView.setEmptyView(textView);
         listView.setAdapter(adapter);
-        // TODO: dodati callback za switch na uredjaju (set active)
-        // TODO: ne poziva se ovaj callback
-        /*Log.d("DEVICE", "Adding setOnItemClickCallback");
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("DEVICE", "Switching to another activity");
-                startActivity(new Intent(getContext(), DeviceActivity.class));
-            }
-        });*/
 
         return v;
     }

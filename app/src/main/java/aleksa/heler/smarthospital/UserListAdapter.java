@@ -5,28 +5,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class UserListAdapter extends BaseAdapter {
 
     private Context context;
-    private ArrayList<UserListModel> userList;
+    private ArrayList<Appointment> userList;
 
     public UserListAdapter(Context context) {
         this.context = context;
-        userList = new ArrayList<UserListModel>();
+        userList = new ArrayList<Appointment>();
     }
 
-    public void addElement(UserListModel element){
+    public void addElement(Appointment element){
         userList.add(element);
         notifyDataSetChanged();
     }
 
-    public void removeElement(UserListModel element){
+    public void removeElement(Appointment element){
         userList.remove(element);
         notifyDataSetChanged();
     }
@@ -60,7 +58,7 @@ public class UserListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.user_list_row, null);
         }
 
-        UserListModel listItem = (UserListModel) getItem(position);
+        Appointment listItem = (Appointment) getItem(position);
         TextView dateTextView = convertView.findViewById(R.id.dateTxt);
         TextView textView = convertView.findViewById(R.id.headingTxt);
         dateTextView.setText(listItem.getDate());

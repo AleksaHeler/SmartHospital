@@ -9,7 +9,7 @@ import java.util.Date;
 
 import aleksa.heler.smarthospital.User;
 
-public class DBHelper extends SQLiteOpenHelper {
+public class UserDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "users.db";
     private static final int DATABASE_VERSION = 1;
 
@@ -21,7 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_DATE_OF_BIRTH = "Date of birth";
     private static final String COLUMN_PASSWORD = "Password";
 
-    public DBHelper(Context context) { super(context, DATABASE_NAME, null, DATABASE_VERSION); }
+    public UserDBHelper(Context context) { super(context, DATABASE_NAME, null, DATABASE_VERSION); }
 
     @Override
     public void onCreate(SQLiteDatabase db) {

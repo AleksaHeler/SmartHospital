@@ -1,6 +1,5 @@
 package aleksa.heler.smarthospital;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,7 +33,6 @@ public class UserFragment extends Fragment {
      * @param username Username.
      * @return A new instance of fragment UserFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static UserFragment newInstance(String username) {
         UserFragment fragment = new UserFragment();
         Bundle args = new Bundle();
@@ -63,10 +60,14 @@ public class UserFragment extends Fragment {
 
         UserListAdapter adapter = new UserListAdapter(this.getContext());
 
-        adapter.addElement(new UserListModel("12.05.2021", "pregled 1"));
-        adapter.addElement(new UserListModel("24.05.2021", "pregled 2"));
-        adapter.addElement(new UserListModel("13.06.2021", "pregled 3"));
-        adapter.addElement(new UserListModel("07.07.2021", "pregled 4"));
+        /* TODO:
+        * Dodati elemente na osnovu podataka iz tabele "appointment"
+        * Obratiti paznju da se prikazu samo oni pregledi koji imaju ID isti kao korisnik
+        */
+        adapter.addElement(new Appointment("12.05.2021", "pregled 1"));
+        adapter.addElement(new Appointment("24.05.2021", "pregled 2"));
+        adapter.addElement(new Appointment("13.06.2021", "pregled 3"));
+        adapter.addElement(new Appointment("07.07.2021", "pregled 4"));
 
         ListView listView = v.findViewById(R.id.list);
         TextView textView = v.findViewById(R.id.emptyView);

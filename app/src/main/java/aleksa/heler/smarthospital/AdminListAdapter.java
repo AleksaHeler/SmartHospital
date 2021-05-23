@@ -14,24 +14,30 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class AdminListAdapter extends BaseAdapter {
 
     private Context context;
-    private ArrayList<AdminListModel> adminList;
+    private ArrayList<SmartDevice> adminList;
+
+    private static String SERVER_URL_POST_STATE = "http://192.168.0.17:8080/api/device/";
 
     public AdminListAdapter(Context context) {
         this.context = context;
-        adminList = new ArrayList<AdminListModel>();
+        adminList = new ArrayList<SmartDevice>();
     }
 
-    public void addElement(AdminListModel element){
+    public void addElement(SmartDevice element){
         adminList.add(element);
         notifyDataSetChanged();
     }
 
-    public void removeElement(AdminListModel element){
+    public void removeElement(SmartDevice element){
         adminList.remove(element);
         notifyDataSetChanged();
     }
@@ -65,22 +71,46 @@ public class AdminListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.admin_list_row, null);
         }
 
-        AdminListModel listItem = (AdminListModel) getItem(position);
+        SmartDevice listItem = (SmartDevice) getItem(position);
         TextView textView = convertView.findViewById(R.id.listTxt);
         TextView textViewOverlay = convertView.findViewById(R.id.listTxtOverlay);
         ImageView imageView = convertView.findViewById(R.id.listImg);
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch sw = convertView.findViewById(R.id.listSw);
-        textView.setText(listItem.getText());
+        textView.setText(listItem.getName());
         textViewOverlay.setText(R.string.neaktivan_label);
         imageView.setImageDrawable(listItem.getImage());
+        if(listItem.isActive()){
+            textViewOverlay.setVisibility(View.INVISIBLE);
+        }else{
+            textViewOverlay.setVisibility(View.VISIBLE);
+        }
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            //////////////////////////////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////////////////////////////
+            /////////// OVDE PROMENITI STANJE UREDJAJA NA SERVERU ////////////////////////////////////////////
+            /////////////////////Promena stanja uređaja///////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////////////////////////////
             @Override
             public void onCheckedChanged(CompoundButton sw, boolean isChecked) {
+                HttpHelper httpHelper = new HttpHelper();
+
                 if(isChecked){
                     textViewOverlay.setVisibility(View.INVISIBLE);
                 }else{
                     textViewOverlay.setVisibility(View.VISIBLE);
                 }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            SmartDevice listItem = (SmartDevice) getItem(position);
+                            String state = isChecked ? "on" : "off";
+                            JSONObject jsonObject = httpHelper.getJSONObjectFromPostURL(SERVER_URL_POST_STATE + listItem.getId() + "/" + state);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
             }
         });
         sw.setChecked(listItem.isActive());
@@ -88,8 +118,8 @@ public class AdminListAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("DEVICE", "Switching to another activity");
-                context.startActivity(new Intent(context, DeviceActivity.class).putExtra("itemPosition", position));
+                SmartDevice listItem = (SmartDevice) getItem(position);
+                context.startActivity(new Intent(context, DeviceActivity.class).putExtra("id", listItem.getId()));
             }
         });
 

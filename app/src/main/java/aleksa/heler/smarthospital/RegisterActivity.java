@@ -36,6 +36,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             s += i + "." + p;
             ispisTV.setText(s);
             ispisTV.setVisibility(View.VISIBLE);
+
+            /* TODO:
+            * Unutar ove tabele "user" treba da se čuvaju svi korisnici koji se registruju kroz ovu formu.
+            * Voditi računa da se za svakog korisnika generiše jedinstveni ID pri pohranjivanju u tabelu baze kako bi se obezbedili jedinstveni unosi.
+            * Pri prijavljivanju korisnika, obaviti proveru da li taj korisnik postoji u bazi podataka
+            * Zatim obaviti prijavu samo ukoliko su podaci za prijavu validni
+            * U suprotnom slučaju izbaciti poruku greške
+            */
         }
     }
 }
