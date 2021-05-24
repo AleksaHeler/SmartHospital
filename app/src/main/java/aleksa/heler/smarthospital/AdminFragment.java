@@ -54,6 +54,7 @@ public class AdminFragment extends Fragment {
         httpHelper = new HttpHelper();
     }
 
+
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,6 +64,7 @@ public class AdminFragment extends Fragment {
 
         AdminListAdapter adapter = new AdminListAdapter(this.getContext());
 
+        /// TODO: add new activity: "new device" to add new devices and put this code there
         //////////////////////////////////////////////////////////////////////////////////////////////////
         ///////// Generisi nove uredjaje kad se ucita ovaj fragment - TESTING ONLY
         //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -74,6 +76,7 @@ public class AdminFragment extends Fragment {
                     try {
                         // Priprema podataka uredjaja
                         String name = "Uredjaj " + finalI;
+                        String type = "Aktuator";
                         String id = "" + new Random().nextInt(100);
 
                         // Kreiranje JSON-a koji cemo poslati
@@ -84,6 +87,7 @@ public class AdminFragment extends Fragment {
 
                         // Slanje json-a na server i ispis da li je uspelo
                         int response = httpHelper.postJSONObjectFromURL(SERVER_URL_POST, jsonSend);
+                        /// TODO: Move this to a special button or something
                         //int response = 0;
                         //for(int i = 0; i < 1000; i++){
                         //    httpHelper.httpDelete(SERVER_URL_DELETE + i);
@@ -93,9 +97,9 @@ public class AdminFragment extends Fragment {
                             @Override
                             public void run() {
                                 if (response == SERVER_STATUS_OK) {
-                                    Toast.makeText(getContext(), "post Success", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(), "POST Success", Toast.LENGTH_LONG).show();
                                 } else {
-                                    Toast.makeText(getContext(), "post Error: " + response, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(), "POST Error: " + response, Toast.LENGTH_LONG).show();
                                 }
                             }
                         });

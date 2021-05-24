@@ -29,9 +29,10 @@ public class DeviceActivity extends AppCompatActivity {
         TextView tvID = findViewById(R.id.device_info_id);
         TextView tvName = findViewById(R.id.device_info_name);
         TextView tvState = findViewById(R.id.device_info_state);
+        TextView tvType = findViewById(R.id.device_info_type);
 
         //////////////////////////////////////////////////////////////////////////////////////////////////
-        ///////// Prikazi informacije samo jednog izabranog uredjaja
+        ///////// Prikazi informacije samo jednog izabranog uredjaja (preko id)
         //////////////////////////////////////////////////////////////////////////////////////////////////
         new Thread(new Runnable() {
             @Override
@@ -42,6 +43,8 @@ public class DeviceActivity extends AppCompatActivity {
                     String id ="ID: " +  jsonObject.getString("id");
                     String name ="Name: " +  jsonObject.getString("name");
                     String state ="State: " +  jsonObject.getString("state");
+                    String type ="Type: " +  jsonObject.getString("type");
+                    /// TODO: add type display
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -51,6 +54,7 @@ public class DeviceActivity extends AppCompatActivity {
                                 tvID.setText(id);
                                 tvName.setText(name);
                                 tvState.setText(state);
+                                tvType.setText(type);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
