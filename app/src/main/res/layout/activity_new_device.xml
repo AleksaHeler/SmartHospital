@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewDevice"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_device_name"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:textAlignment="center"
+        android:hint="Name"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_device_type"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:textAlignment="center"
+        android:hint="Type"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/new_device_submit"/>
+
+    <Button
+        android:id="@+id/delete_all_devices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete all devices"
+        android:backgroundTint="#ee5555"
+        android:textSize="10dp"
+        android:layout_marginTop="80dp"
+        app:cornerRadius="100dp" />
+
+</LinearLayout>

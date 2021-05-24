@@ -2,10 +2,12 @@ package aleksa.heler.smarthospital.helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import aleksa.heler.smarthospital.classes.Appointment;
+import aleksa.heler.smarthospital.classes.User;
 
 public class AppointmentDBHelper extends SQLiteOpenHelper {
 
@@ -26,11 +28,6 @@ public class AppointmentDBHelper extends SQLiteOpenHelper {
                 COLUMN_ID + " TEXT, " +
                 COLUMN_DATE + " TEXT, " +
                 COLUMN_TEXT + " TEXT);");
-
-        /* TODO:
-        *  Za sada je ovu tabelu baze potrebno popuniti ručno, kako bi se pri pokretanju aplikacije u listi nalazilo minimum 5 unosa
-        *    insert(addElement(new Appointment("12.05.2021", "pregled 1"))
-        */
     }
 
     @Override
@@ -48,5 +45,77 @@ public class AppointmentDBHelper extends SQLiteOpenHelper {
 
         db.insert(TABLE_NAME, null, values);
         close();
+    }
+
+    // Returns all appointments from database
+    public Appointment[] readAppointments() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Get data from database
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
+        if (cursor.getCount() <= 0) // If there is nothing found
+            return null;
+
+
+        // Go trough data and create class objects
+        Appointment[] appointments = new Appointment[cursor.getCount()];
+        int i = 0;
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            appointments[i++] = createAppointment(cursor);
+        }
+
+        close();
+        return appointments;
+    }
+
+    // Returns all appointments with given ID from database
+    public Appointment[] readAppointments(String id) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Get data from database
+        //Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, null, COLUMN_ID + "=?", new String[]{id}, null, null, null);
+        if (cursor.getCount() <= 0) // If there is nothing found
+            return null;
+
+        // Go trough data and create class objects
+        Appointment[] appointments = new Appointment[cursor.getCount()];
+        int i = 0;
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            appointments[i++] = createAppointment(cursor);
+        }
+
+        close();
+        return appointments;
+    }
+
+    // Returns appointment from database by ID
+    public Appointment readAppointment(String id) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME, null, COLUMN_ID + "=?", new String[]{id}, null, null, null);
+        if (cursor.getCount() <= 0) // If there is nothing found
+            return null;
+        cursor.moveToFirst(); // In case there are more users with same ID
+        Appointment appointment = createAppointment(cursor);
+
+        close();
+        return appointment;
+    }
+
+    // Creates an appointment class object from given cursor
+    private Appointment createAppointment(Cursor cursor){
+        String id = cursor.getString(cursor.getColumnIndex(COLUMN_ID));
+        String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
+        String text = cursor.getString(cursor.getColumnIndex(COLUMN_TEXT));
+        return new Appointment(id, date, text);
+    }
+
+    // Deletes appointments with given ID and returns how many rows were deleted
+    public int deleteAppointment(String id){
+        SQLiteDatabase db = getReadableDatabase();
+        int delete_count = db.delete(TABLE_NAME, COLUMN_ID + "=?", new String[]{id});
+        close();
+        return  delete_count;
     }
 }

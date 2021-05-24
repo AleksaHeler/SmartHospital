@@ -3,6 +3,7 @@ package aleksa.heler.smarthospital.listadapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,10 @@ import java.util.ArrayList;
 import aleksa.heler.smarthospital.DeviceActivity;
 import aleksa.heler.smarthospital.R;
 import aleksa.heler.smarthospital.classes.SmartDevice;
+import aleksa.heler.smarthospital.helpers.DeviceDBHelper;
 import aleksa.heler.smarthospital.helpers.HttpHelper;
+
+import static java.lang.Integer.parseInt;
 
 public class AdminListAdapter extends BaseAdapter {
 
@@ -40,6 +44,11 @@ public class AdminListAdapter extends BaseAdapter {
 
     public void removeElement(SmartDevice element){
         adminList.remove(element);
+        notifyDataSetChanged();
+    }
+
+    public void clear(){
+        adminList.clear();
         notifyDataSetChanged();
     }
 
@@ -79,8 +88,8 @@ public class AdminListAdapter extends BaseAdapter {
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch sw = convertView.findViewById(R.id.listSw);
         textView.setText(listItem.getName());
         textViewOverlay.setText(R.string.neaktivan_label);
-        imageView.setImageDrawable(listItem.getImage());
-        if(listItem.isActive()){
+        imageView.setImageDrawable(context.getDrawable(parseInt(listItem.getImage())));
+        if(listItem.getActive().toUpperCase().equals("ON")){
             textViewOverlay.setVisibility(View.INVISIBLE);
         }else{
             textViewOverlay.setVisibility(View.VISIBLE);
@@ -92,6 +101,7 @@ public class AdminListAdapter extends BaseAdapter {
             @Override
             public void onCheckedChanged(CompoundButton sw, boolean isChecked) {
                 HttpHelper httpHelper = new HttpHelper();
+                DeviceDBHelper deviceDBHelper = new DeviceDBHelper(context);
 
                 if(isChecked){
                     textViewOverlay.setVisibility(View.INVISIBLE);
@@ -104,7 +114,10 @@ public class AdminListAdapter extends BaseAdapter {
                         try {
                             SmartDevice listItem = (SmartDevice) getItem(position);
                             String state = isChecked ? "on" : "off";
+                            listItem.setActive(state);
                             JSONObject jsonObject = httpHelper.getJSONObjectFromPostURL(SERVER_URL_POST_STATE + listItem.getId() + "/" + state);
+                            deviceDBHelper.deleteDevice(listItem.getId());  // Delete and again add the device to change its data
+                            deviceDBHelper.insert(listItem);
                         }catch (Exception e){
                             e.printStackTrace();
                         }
@@ -112,7 +125,7 @@ public class AdminListAdapter extends BaseAdapter {
                 }).start();
             }
         });
-        sw.setChecked(listItem.isActive());
+        sw.setChecked(listItem.getActive().toUpperCase().equals("ON"));
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

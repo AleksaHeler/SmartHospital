@@ -1,5 +1,6 @@
 package aleksa.heler.smarthospital.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,9 +8,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import aleksa.heler.smarthospital.LoginActivity;
+import aleksa.heler.smarthospital.MainActivity;
+import aleksa.heler.smarthospital.NewAppointment;
 import aleksa.heler.smarthospital.R;
 import aleksa.heler.smarthospital.listadapters.UserListAdapter;
 import aleksa.heler.smarthospital.classes.Appointment;
@@ -59,6 +64,14 @@ public class UserFragment extends Fragment {
         TextView textView = v.findViewById(R.id.emptyView);
         listView.setEmptyView(textView);
         listView.setAdapter(adapter);
+
+        Button newAppointmentButton = v.findViewById(R.id.new_appointment);
+        newAppointmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), NewAppointment.class));
+            }
+        });
 
         return v;
     }
