@@ -41,10 +41,10 @@ public class DeviceActivity extends AppCompatActivity {
                 try
                 {
                     JSONObject jsonObject = httpHelper.getJSONObjectFromURL(SERVER_URL_GET_INFO + id);
-                    String id ="ID: " +  jsonObject.getString("id");
-                    String name ="Name: " +  jsonObject.getString("name");
-                    String state ="State: " +  jsonObject.getString("state");
-                    String type ="Type: " +  jsonObject.getString("type");
+                    String id = "ID: " +  jsonObject.getString("id");
+                    String name = "Name: " +  jsonObject.getString("name");
+                    String state = "State: " +  jsonObject.getString("state");
+                    //String type = "Type: " +  jsonObject.getString("type");
                     /// TODO: add type display
 
                     runOnUiThread(new Runnable() {
@@ -55,7 +55,7 @@ public class DeviceActivity extends AppCompatActivity {
                                 tvID.setText(id);
                                 tvName.setText(name);
                                 tvState.setText(state);
-                                tvType.setText(type);
+                                //tvType.setText(type);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

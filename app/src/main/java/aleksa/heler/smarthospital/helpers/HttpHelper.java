@@ -107,6 +107,7 @@ public class HttpHelper {
         return responseCode;
     }
 
+    /*HTTP post and get json as response*/
     public JSONObject getJSONObjectFromPostURL(String urlString) throws IOException, JSONException {
         HttpURLConnection urlConnection = null;
         java.net.URL url = new URL(urlString);

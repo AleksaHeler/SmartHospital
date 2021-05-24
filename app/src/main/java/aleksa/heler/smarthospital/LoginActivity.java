@@ -17,8 +17,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Korisnicko ime je prosledjeno kao dodatni parametar
         String username = getIntent().getExtras().getString("username");
 
+        // Na osnovu korisnickog imena se prikaze jedan od fragmenata (user/admin)
         if(username.equals("admin")) {
             adminFragment = AdminFragment.newInstance();
 

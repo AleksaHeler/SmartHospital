@@ -20,29 +20,19 @@ import aleksa.heler.smarthospital.R;
 import aleksa.heler.smarthospital.classes.SmartDevice;
 import aleksa.heler.smarthospital.helpers.HttpHelper;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AdminFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AdminFragment extends Fragment {
 
     private HttpHelper httpHelper;
 
     private static int SERVER_STATUS_OK = 200;
-    private static String SERVER_URL_POST = "http://192.168.0.17:8080/api/device";
-    private static String SERVER_URL_GET = "http://192.168.0.17:8080/api/devices";
+    private static String SERVER_URL_POST = "http://192.168.0.17:8080/api/device/";
+    private static String SERVER_URL_GET = "http://192.168.0.17:8080/api/devices/";
     private static String SERVER_URL_DELETE = "http://192.168.0.17:8080/api/device/";
 
     // Required empty public constructor
     public AdminFragment() { }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment AdminFragment.
-     */
+    // Use this factory method to create a new instance of this fragment
     public static AdminFragment newInstance() {
         AdminFragment fragment = new AdminFragment();
         return fragment;

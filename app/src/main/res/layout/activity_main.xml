@@ -34,6 +34,7 @@
         android:layout_margin="20dp"
         android:text="@string/register_button"
         android:id="@+id/register_button"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,5 +64,6 @@
         android:visibility="invisible"
         android:id="@+id/login_submit_button"
         android:text="@string/login_submit_button"/>
+
 
 </LinearLayout>

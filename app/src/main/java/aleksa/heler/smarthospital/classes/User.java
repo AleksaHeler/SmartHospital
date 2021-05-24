@@ -2,6 +2,7 @@ package aleksa.heler.smarthospital.classes;
 
 import java.util.Date;
 
+// Describes a user entity used for logging in and linking with appointments
 public class User {
     private String id;
     private String name;
@@ -10,6 +11,7 @@ public class User {
     private String dateOfBirth;
     private String password;
 
+    // Constructor
     public User(String id, String name, String surname, String gender, String dateOfBirth, String password) {
         this.id = id;
         this.name = name;
@@ -19,50 +21,42 @@ public class User {
         this.password = password;
     }
 
+    // Getters
     public String getId() {
         return id;
     }
-
     public String getName() {
         return name;
     }
-
     public String getSurname() {
         return surname;
     }
-
     public String getGender() {
         return gender;
     }
-
     public String getDateOfBirth() {
         return dateOfBirth;
     }
-
     public String getPassword() {
         return password;
     }
 
+    // Setters
     public void setId(String id) {
         this.id = id;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public void setSurname(String surname) {
         this.surname = surname;
     }
-
     public void setGender(String gender) {
         this.gender = gender;
     }
-
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
