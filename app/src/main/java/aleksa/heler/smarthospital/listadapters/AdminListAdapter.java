@@ -1,9 +1,8 @@
-package aleksa.heler.smarthospital;
+package aleksa.heler.smarthospital.listadapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +11,15 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
+
+import aleksa.heler.smarthospital.DeviceActivity;
+import aleksa.heler.smarthospital.R;
+import aleksa.heler.smarthospital.classes.SmartDevice;
+import aleksa.heler.smarthospital.helpers.HttpHelper;
 
 public class AdminListAdapter extends BaseAdapter {
 

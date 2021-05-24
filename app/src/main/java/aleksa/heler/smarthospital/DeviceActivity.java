@@ -3,13 +3,14 @@ package aleksa.heler.smarthospital;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+
+import aleksa.heler.smarthospital.helpers.HttpHelper;
 
 public class DeviceActivity extends AppCompatActivity {
 

@@ -3,9 +3,9 @@ package aleksa.heler.smarthospital;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+
+import aleksa.heler.smarthospital.fragments.AdminFragment;
+import aleksa.heler.smarthospital.fragments.UserFragment;
 
 public class LoginActivity extends AppCompatActivity {
 

@@ -1,13 +1,11 @@
-package aleksa.heler.smarthospital.db;
+package aleksa.heler.smarthospital.helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.Date;
-
-import aleksa.heler.smarthospital.User;
+import aleksa.heler.smarthospital.classes.User;
 
 public class UserDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "users.db";

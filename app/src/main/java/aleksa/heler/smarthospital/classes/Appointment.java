@@ -1,4 +1,4 @@
-package aleksa.heler.smarthospital;
+package aleksa.heler.smarthospital.classes;
 
 public class Appointment {
     private String id;

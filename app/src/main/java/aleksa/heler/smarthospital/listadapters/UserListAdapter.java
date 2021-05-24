@@ -1,4 +1,4 @@
-package aleksa.heler.smarthospital;
+package aleksa.heler.smarthospital.listadapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import aleksa.heler.smarthospital.R;
+import aleksa.heler.smarthospital.classes.Appointment;
 
 public class UserListAdapter extends BaseAdapter {
 

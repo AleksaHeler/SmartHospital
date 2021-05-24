@@ -1,4 +1,4 @@
-package aleksa.heler.smarthospital;
+package aleksa.heler.smarthospital.classes;
 
 import android.graphics.drawable.Drawable;
 

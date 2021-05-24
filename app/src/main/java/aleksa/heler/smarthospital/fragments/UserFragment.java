@@ -1,4 +1,4 @@
-package aleksa.heler.smarthospital;
+package aleksa.heler.smarthospital.fragments;
 
 import android.os.Bundle;
 
@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import aleksa.heler.smarthospital.R;
+import aleksa.heler.smarthospital.listadapters.UserListAdapter;
+import aleksa.heler.smarthospital.classes.Appointment;
 
 /**
  * A simple {@link Fragment} subclass.

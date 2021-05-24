@@ -1,4 +1,4 @@
-package aleksa.heler.smarthospital;
+package aleksa.heler.smarthospital.helpers;
 
 import android.util.Log;
 import org.json.JSONArray;

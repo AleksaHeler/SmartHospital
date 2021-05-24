@@ -1,11 +1,11 @@
-package aleksa.heler.smarthospital.db;
+package aleksa.heler.smarthospital.helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import aleksa.heler.smarthospital.SmartDevice;
+import aleksa.heler.smarthospital.classes.SmartDevice;
 
 public class DeviceDBHelper extends SQLiteOpenHelper {
 
