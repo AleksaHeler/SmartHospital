@@ -12,12 +12,16 @@ import java.io.IOException;
 
 import aleksa.heler.smarthospital.helpers.HttpHelper;
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+///////// Ucita sa servera prikaz samo jednog uredjaja
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
 public class DeviceActivity extends AppCompatActivity {
 
     private HttpHelper httpHelper;
     private String id;
 
-    private static String SERVER_URL_GET_INFO = "http://192.168.0.17:8080/api/device/"; // Na ovo dodati ID uredjaja koji treba da se dobavi
+    private static final String SERVER_URL_GET_INFO = "http://192.168.0.100:8080/api/device"; // Na ovo dodati ID uredjaja koji treba da se dobavi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

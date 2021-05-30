@@ -12,7 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartHospital">
-        <activity android:name=".NewDevice"></activity>
+        <service
+            android:name=".DeviceService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".NewDevice" />
         <activity android:name=".NewAppointment" />
 
         <meta-data

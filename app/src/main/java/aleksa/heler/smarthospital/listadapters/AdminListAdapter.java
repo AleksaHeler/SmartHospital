@@ -25,12 +25,16 @@ import aleksa.heler.smarthospital.helpers.HttpHelper;
 
 import static java.lang.Integer.parseInt;
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+///////// Promeni stanje uredjaja na serveru
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
 public class AdminListAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<SmartDevice> adminList;
 
-    private static String SERVER_URL_POST_STATE = "http://192.168.0.17:8080/api/device/";
+    private static String SERVER_URL_POST_STATE = "http://192.168.0.100:8080/api/device/";
 
     public AdminListAdapter(Context context) {
         this.context = context;

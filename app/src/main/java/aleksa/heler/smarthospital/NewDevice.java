@@ -23,6 +23,10 @@ import aleksa.heler.smarthospital.classes.SmartDevice;
 import aleksa.heler.smarthospital.helpers.DeviceDBHelper;
 import aleksa.heler.smarthospital.helpers.HttpHelper;
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+///////// Dodaje novi uredjaj na server i lokalnu bazu
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
 public class NewDevice extends AppCompatActivity {
 
     private EditText nameET;
@@ -33,10 +37,10 @@ public class NewDevice extends AppCompatActivity {
     private DeviceDBHelper deviceDBHelper;
     private HttpHelper httpHelper;
 
-    private static String SERVER_URL_GET = "http://192.168.0.17:8080/api/devices/";
-    private static String SERVER_URL_POST = "http://192.168.0.17:8080/api/device/";
-    private static String SERVER_URL_DELETE = "http://192.168.0.17:8080/api/device/";
-    private static int SERVER_STATUS_OK = 200;
+    private static final String SERVER_URL_POST =  "http://192.168.0.100:8080/api/device";
+    private static final String SERVER_URL_GET = "http://192.168.0.100:8080/api/devices";
+    private static final String SERVER_URL_DELETE = SERVER_URL_POST;
+    private static final int SERVER_STATUS_OK = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

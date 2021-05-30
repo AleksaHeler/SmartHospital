@@ -31,15 +31,20 @@ import aleksa.heler.smarthospital.R;
 import aleksa.heler.smarthospital.classes.SmartDevice;
 import aleksa.heler.smarthospital.helpers.HttpHelper;
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+///////// Dobavlja sve uredjaje sa servera i dodaj ih u lokalnu SQL bazu
+///////// Dobavlja sve uredjaje iz lokalne SQL baze i dodaj ih u listu
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
 public class AdminFragment extends Fragment {
 
     private HttpHelper httpHelper;
     private DeviceDBHelper deviceDBHelper;
     private AdminListAdapter adapter;
 
-    private static int SERVER_STATUS_OK = 200;
-    private static String SERVER_URL_POST = "http://192.168.0.17:8080/api/device/";
-    private static String SERVER_URL_GET = "http://192.168.0.17:8080/api/devices/";
+    private static final int SERVER_STATUS_OK = 200;
+    private static final String SERVER_URL_POST = "http://192.168.0.100:8080/api/device/";
+    private static final String SERVER_URL_GET = "http://192.168.0.100:8080/api/devices/";
 
     private int devicesOnServer = 0;
 
@@ -48,8 +53,7 @@ public class AdminFragment extends Fragment {
 
     // Use this factory method to create a new instance of this fragment
     public static AdminFragment newInstance() {
-        AdminFragment fragment = new AdminFragment();
-        return fragment;
+        return new AdminFragment();
     }
 
     @Override

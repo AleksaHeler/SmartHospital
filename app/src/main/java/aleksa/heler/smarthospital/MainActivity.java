@@ -2,18 +2,26 @@ package aleksa.heler.smarthospital;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ServiceConnection {
 
     EditText usernameET;
     EditText passwordET;
     Button login_submit;
+
+    private aleksa.heler.smarthospital.fragments.DeviceBinder mService = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.register_button).setOnClickListener(this);
         findViewById(R.id.login_button).setOnClickListener(this);
         login_submit.setOnClickListener(this);
+
+        // Create bind service for getting device list
+        if(!bindService(new Intent(MainActivity.this, DeviceService.class), this, Context.BIND_AUTO_CREATE))
+            Toast.makeText(MainActivity.this, "Bind failed", Toast.LENGTH_LONG).show();
     }
 
     // Handling click events for all buttons
@@ -50,4 +62,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(MainActivity.this, LoginActivity.class).putExtra("username", username));
         }
     }
+
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service) {
+        Toast.makeText(MainActivity.this, "Service connected", Toast.LENGTH_LONG).show();
+        mService  = DeviceBinder.Stub.asInterface(service);
+        try{
+            mService.getDevices();
+        } catch (RemoteException e){
+            Log.d("DEVICEBINDER", "Error in function onServiceConnected in MainActivity.java");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName name) {
+        Toast.makeText(MainActivity.this, "Service disconnected", Toast.LENGTH_LONG).show();
+        mService = null;
+    }
+
 }

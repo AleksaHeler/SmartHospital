@@ -19,6 +19,8 @@ import aleksa.heler.smarthospital.R;
 import aleksa.heler.smarthospital.listadapters.UserListAdapter;
 import aleksa.heler.smarthospital.classes.Appointment;
 
+/// TODO: treba ucitati preglede iz baze podataka
+
 public class UserFragment extends Fragment {
 
     private String username;
