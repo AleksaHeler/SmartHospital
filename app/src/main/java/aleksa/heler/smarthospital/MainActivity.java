@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/// TODO: add notifications when new devices are discovered in DeviceBinder.java
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ServiceConnection {
 
     EditText usernameET;
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
-        Toast.makeText(MainActivity.this, "Service disconnected", Toast.LENGTH_LONG).show();
+        Log.d("DEVICEBINDER", "Service  by error!");
         mService = null;
     }
 
